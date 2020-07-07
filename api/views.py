@@ -5,6 +5,8 @@ from api.paginations import MyPageNumberPagination  # 导入基础分页器
 from api.paginations import MyLimitPagination       # 导入偏移分页器
 from api.paginations import MyCoursePagination      # 导入游标分页器
 from api.serializers import ComputerModelSerializer  # 反序列化器
+from django_filters.rest_framework import DjangoFilterBackend # 导入django-filter插件
+from api.filter import  ComputerFilterSet  # 导入filter 序列器
 
 from api.models import Computer
 
@@ -17,13 +19,17 @@ class ComputerListAPIView(ListAPIView):
     serializer_class = ComputerModelSerializer
 
     # 通过此参数配置过滤的器类
-    filter_backends = [SearchFilter, OrderingFilter,LimitFilter] #搜素、排序、自定义分页
+    filter_backends = [SearchFilter, OrderingFilter,LimitFilter, DjangoFilterBackend] #搜素、排序、自定义分页
     # 指定当前搜索条件
     search_fields = ["name", "price"]
     # 指定排序的条件
     ordering = ["price"]
 
     # 指定分页器   不能使用列表 或 元祖指定
-    pagination_class = MyPageNumberPagination    #基础分页器
+    # pagination_class = MyPageNumberPagination    #基础分页器
     # pagination_class = MyLimitPagination       #偏移分页器
     # pagination_class = MyCoursePagination      #游标分页器 必须有 ordering = ["price"]的前提下
+
+    # 条件查询
+
+    filter_class = ComputerFilterSet

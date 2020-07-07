@@ -1,12 +1,12 @@
 from rest_framework.pagination import PageNumberPagination  # 基础分页器
 from rest_framework.pagination import LimitOffsetPagination # 偏移分页器
-from rest_framework.pagination import CursorPagination
+from rest_framework.pagination import CursorPagination      # 游标分页器
 
 
 # 基础分页器
 class MyPageNumberPagination(PageNumberPagination):
     # 指定每页分页的数量
-    page_size = 2
+    page_size = 3
     # 可以通过此参数指定分页最大数量
     max_page_size = 5
     # 指定前端修改每页分页数量的 key
